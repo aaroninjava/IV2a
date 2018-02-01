@@ -3,14 +3,14 @@ public class IV {
     static double i=0;
     static double x=3;
     static double y=0;
-    
+    /*
     public static void main(String[] args) {
             //y=x*x;
             //System.out.println("y=x^2, x="+x+",y="+yx(x));
             iv1();
             //System.out.println("y=x^2, x="+x+",y="+yx(x));
     }
-    
+    */
 //public  static void iv1(double P) {          
     public static void iv1() {          
           //double P=1.414;  
