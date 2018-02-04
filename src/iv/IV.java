@@ -1,16 +1,40 @@
 package iv;
 public class IV {
-    static double i=0;
-    static double x=3;
-    static double y=0;
-    /*
+//    static double i=0;
+//    static double x=3;
+//    static double y=0;
+
     public static void main(String[] args) {
             //y=x*x;
             //System.out.println("y=x^2, x="+x+",y="+yx(x));
-            iv1();
+            //iv1a();
             //System.out.println("y=x^2, x="+x+",y="+yx(x));
+            
+            System.out.println("IV1a"); 
+        String CP="C";        
+        //double Pr=1.732;        
+        double Pr=0.84;        
+        double S=100;
+        double K=110;
+        double T=0.1;
+        double r=0.01;
+        double y=0;  
+        //double sigma=0.3;     
+        double sigma=0.3;             
+        
+        bsa2 b = new bsa2(CP,Pr,S,K,T,sigma,r,y);       
+        //bsa2 b = new bsa2(S,K,T,sigma,r,y);    
+        
+        //System.out.println("d1="+b.d2);
+        //System.out.println("ad1="+b.ad2());
+        //System.out.println("call="+b.call());
+        //System.out.println("call="+b.iv1a());
+        //b.iv1a(CP,Pr,S,K,T,r,y);             
+        //System.out.println("call="+b.call());                
+        b.iv1a();
+        
     }
-    */
+    
 //public  static void iv1(double P) {          
     public static void iv1() {          
           //double P=1.414;  
