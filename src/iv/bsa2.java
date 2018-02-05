@@ -40,10 +40,10 @@ public class bsa2 {
         this.sigma=sigma;
         this.r=r;
         this.y=y;
-    /*    
-        d1 =( Math.log(S/K) + 
-                (r-y + sigma * sigma / 2)* T ) / (sigma * Math.sqrt(T));
-        d2 = d1- sigma * Math.sqrt(T) ;   */
+        
+    //    d1 =( Math.log(S/K) + 
+    //            (r-y + sigma * sigma / 2)* T ) / (sigma * Math.sqrt(T));
+    //    d2 = d1- sigma * Math.sqrt(T) ;   
     }
     
     public double ad1()
@@ -77,7 +77,9 @@ public class bsa2 {
     //Op_Cvalue = S * NorCdf(d1) - K * Exp(-r * T) * NorCdf(d2)
     public double call()
     {                     
-        double calla;                
+        double calla;
+        d1=ad1();
+        d2=ad2();
         calla=S*cdf(d1)- K*Math.exp(-r*T)* cdf(d2);        
         return calla;        
     }
@@ -164,42 +166,65 @@ public class bsa2 {
         return S/10;
     } 
         
-    
+
+//public bsa2(String CP,double Pr,double S,double K,double T,double sigma,double r,double y){    
 //public  static void iv1(double P) {          
-    public static void iv1a(String CP,double P,double S,double K,double T,double r,double y) {          
+    //public static void iv1a(String CP,double P,double S,double K,double T,double r,double y) {          
+    public void iv1a() {          
+        System.out.println("IV1a"); 
           //double P=1.414;  
           //double P=1.732;  
+          
           double value=0;  
           double err=0;  
           double tol=0.0001;
           double sd1=0.0001;
-          double sd2=3;  
+          double sd2=4;  
           double std=0;   
           double i=1;   
-          std = (sd1 + sd2) / 2;
-          
+          std = (sd1 + sd2) / 2;          
+          System.out.println("IV計算前代入sigma="+std);                     
+          System.out.println("IV計算前Pr="+Pr);                     
           //value=P*P;
-          value=yx(std);
-          //value=call(std);
-          
-          err = Math.abs(value - P);
+          //value=yx(std);
+          this.sigma=std;          
+          //System.out.println("IV計算前 sigma="+this.sigma); 
+          value=call();
+          //System.out.println("IV計算前 代入估計value="+value); 
+          err = Math.abs(value - Pr);
           
          //while (err >= tol)
-          while (err >= tol)//(i<100)
+          while ( (err >= tol) && (i<20)  ) //(i<100)
         {          
-            if (value >= P) {sd2 = std;}
-            if (value < P)  {sd1 = std;}
+            if (value >= Pr) 
+                {
+                    sd2 = std;
+            //        System.out.println("value =="+value); 
+            //        System.out.println("Pr="+Pr); 
+            //        System.out.println("value >= Pr, sd2="+sd2); 
+                }
+            if (value < Pr)  
+                {   
+                    sd1 = std;
+//                    System.out.println("value =="+value); 
+//                    System.out.println("Pr="+Pr); 
+//                    System.out.println("value < Pr, sd1="+sd1); 
+                }
             
              std = (sd1 + sd2) / 2;
-             value=yx(std);          
-             err = Math.abs(value - P);
+             this.sigma=std;
+             //value=yx(std);          
+             value=call();          
+             err = Math.abs(value - Pr);
              i=i+1;
+             //System.out.println("二分逼近計算次數="+sigma); 
              System.out.println("二分逼近計算次數="+i); 
+             System.out.println("sd1="+sd1+",  sd2="+sd2);              
              System.out.println("二分逼近計算帶入std="+std+",  估計"+value);              
          }                                 
           
-          System.out.println("y=x*x二分法是"+std);           
-          System.out.println("y=x*x結果是"+value); 
+          System.out.println("二分法是"+std);           
+          //System.out.println("y=x*x結果是"+value); 
           System.out.println("IV1a"); 
           //System.out.println("結果誤差="+err);        
     }   
